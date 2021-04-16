@@ -26,23 +26,28 @@
     
     
     <div class="col-3 float-start min-vh-100 m-2 p-2 border">
-        <form>
-            <div class="mb-3">
-                <h2><label for="searchText" class="form-label">Enter City</label></h2>
-                <input type="text" class="form-control" id="searchText">
+        <h2>Select a City</h2>
+        <form class="row justify-content-between">
+            <div class="col-lg-8">
+                <label for="searchText" class="form-label">Enter City</label>
+                <input type="text" class="form-control" id="searchText" placeholder="Boston">
             </div>
+
+            <div class="col-lg-4 mb-2">
+                <label for="inputState" class="form-label">State</label>
+                <select id="inputState" class="form-select">
+                  <option selected>Choose...</option>
+                </select>
+              </div>
+            
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary search">Search</button>
             </div>
         </form>
 
         <section class="history">
-
         <h3>Search History</h3>
-
         </section>
-
-
     </div>
 
     <div class="row align-items-start p-2">
@@ -54,36 +59,39 @@
             <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
             <p class="uv">UV Index: <i class="text-muted">Choose a city</i></p>
         </div>
-        <div class="row justify-content-between">
-            <div class="col-2 border mb-2 forecast">
-                <p class="lead date">Five day forecast</p>
-                <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
-                <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
-                <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
-            </div>
-            <div class="col-2 border mb-2 forecast">
-                <p class="lead date">Five day forecast</p>
-                <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
-                <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
-                <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
-            </div>
-            <div class="col-2 border mb-2 forecast">
-                <p class="lead date">Five day forecast</p>
-                <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
-                <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
-                <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
-            </div>
-            <div class="col-2 border mb-2 forecast">
-                <p class="lead date">Five day forecast</p>
-                <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
-                <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
-                <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
-            </div>
-            <div class="col-2 border mb-2 forecast">
-                <p class="lead date">Five day forecast</p>
-                <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
-                <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
-                <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
+        <div class="container-fluid border p2">
+            <h2>Five Day Forecast</h2>
+            <div class="row justify-content-around">
+                <div class="col-lg-2 border m-2 forecast">
+                    <p class="lead date">Five day forecast</p>
+                    <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
+                    <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
+                    <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
+                </div>
+                <div class="col-lg-2 border m-2 forecast">
+                    <p class="lead date">Five day forecast</p>
+                    <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
+                    <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
+                    <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
+                </div>
+                <div class="col-lg-2 border m-2 forecast">
+                    <p class="lead date">Five day forecast</p>
+                    <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
+                    <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
+                    <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
+                </div>
+                <div class="col-lg-2 border m-2 forecast">
+                    <p class="lead date">Five day forecast</p>
+                    <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
+                    <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
+                    <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
+                </div>
+                <div class="col-lg-2 border m-2 forecast">
+                    <p class="lead date">Five day forecast</p>
+                    <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
+                    <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
+                    <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
+                </div>
             </div>
         </div>
     </div>

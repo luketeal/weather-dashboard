@@ -3,6 +3,8 @@ let todayEl = document.querySelector('.today')
 let forecastAr = $('.forecast')
 let dateAr = $('.date')
 
+
+
 console.log(searchButton)
 console.log(forecastAr)
 
@@ -15,14 +17,23 @@ for(let i=0; i<dateAr.length; i++) {
 
 let apiKey = '0b34c0c779002825da1931b61289722d'
 
+// load state dropdown
+let stateList=['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY']
+
+for(let i=0; i<stateList.length; i++) {
+    $("select").append($('<option>'+stateList[i]+'</option>'))
+}
+
 // functions
 
 function fetchWeatherData(event) {
     event.preventDefault();
     let searchText = document.querySelector('#searchText').value
+    let stateText = document.querySelector('#inputState').value
+    console.log(stateText)
     console.log(encodeURIComponent(searchText))
     
-    let currentURL = 'https://api.openweathermap.org/data/2.5/weather?q='+encodeURIComponent(searchText)+'&appid='+apiKey+'&units=imperial'
+    let currentURL = 'https://api.openweathermap.org/data/2.5/weather?q='+encodeURIComponent(searchText)+','+stateText+',US&appid='+apiKey+'&units=imperial'
     
     console.log(currentURL)
     fetch(currentURL)
