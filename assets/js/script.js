@@ -76,7 +76,7 @@ function fetchWeatherData(event) {
                 // todays weather array
                 let weatherToday= [
                     currentWeather.name, 
-                    'Temperatures '+forecastWeather.current.temp+' \u00B0F',
+                    'Temperature: '+forecastWeather.current.temp+' \u00B0F',
                     'Wind Speed: '+forecastWeather.current.wind_speed+' mph',
                     'Humidity: '+forecastWeather.current.humidity+'%',
                     'UV Index: '+forecastWeather.current.uvi,
