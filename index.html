@@ -17,7 +17,7 @@
     <title>Weather Dashboard</title>
 </head>
 
-<body class="bg-light">
+<body>
     <header class="container-fluid p-5 text-end border-bottom border-dark border-5">
         <h1 class="display-3">Weather Dashboard</h1>
         <p class="lead">Never get left in the cold</p>
@@ -26,28 +26,22 @@
     
     
     <div class="col-3 float-start min-vh-100 m-2 p-2 border">
-        <h2>Select a City</h2>
+        <h2>Enter a City</h2>
         <form class="row justify-content-between">
-            <div class="col-lg-8">
-                <label for="searchText" class="form-label">Enter City</label>
-                <input type="text" class="form-control" id="searchText" placeholder="Boston">
+            <div class="mb-2">
+                <input type="text" class="form-control" id="searchText" placeholder="City">
             </div>
-
-            <div class="col-lg-4 mb-2">
-                <label for="inputState" class="form-label">State</label>
-                <select id="inputState" class="form-select">
-                  <option selected>Choose...</option>
-                </select>
-              </div>
-            
+         
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary search">Search</button>
             </div>
         </form>
 
-        <section class="history">
-        <h3>Search History</h3>
+        <section>
+            <h3>Search History</h3>
+            <div class="history"></div>
         </section>
+
     </div>
 
     <div class="row align-items-start p-2">
@@ -57,7 +51,7 @@
             <p class="temp">Temperature: <i class="text-muted">Choose a city</i></p>
             <p class="wind">Wind Speed: <i class="text-muted">Choose a city</i></p>
             <p class="humidity">Humidity: <i class="text-muted">Choose a city</i></p>
-            <p class="uv">UV Index: <i class="text-muted">Choose a city</i></p>
+            <p class="uv col-2">UV Index: <i class="text-muted">Choose a city</i></p>
         </div>
         <div class="container-fluid border p2">
             <h2>Five Day Forecast</h2>
