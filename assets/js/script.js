@@ -3,7 +3,7 @@ let todayEl = document.querySelector('.today')
 let forecastAr = $('.forecast')
 let dateAr = $('.date')
 let historyEl = $('.history')
-let iconURL =  'http://openweathermap.org/img/wn/'
+let iconURL =  'https://openweathermap.org/img/wn/'
 let apiKey = '0b34c0c779002825da1931b61289722d'
 
 // get search history from local storage
