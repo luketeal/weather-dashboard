@@ -6,7 +6,9 @@ let historyEl = $('.history')
 let iconURL =  'https://openweathermap.org/img/wn/'
 let apiKey = '0b34c0c779002825da1931b61289722d'
 
-// get search history from local storage
+// --------------- ON PAGE LOAD ------------------
+
+// get search history from local storage and print to page if there is any
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 if(searchHistory != null) {
     printHistory()
@@ -26,20 +28,25 @@ for(let i=0; i<stateList.length; i++) {
     $("select").append($('<option>'+stateList[i]+'</option>'))
 }
 
-// functions
+// ------------------------ FUNCTIONS ---------------------------------
 
+// This function gets weather data for the city searched and updates the page with most of the information
 function fetchWeatherData(event) {
     event.preventDefault();
+    // trim accidental spaces
     let searchText = document.querySelector('#searchText').value.trim()
+
+    // remove images any icons on the page
     $('img').remove()
-    console.log(encodeURIComponent(searchText))
     
+    // declare the search api url for the current weather
     let currentURL = 'https://api.openweathermap.org/data/2.5/weather?q='+encodeURIComponent(searchText)+'&appid='+apiKey+'&units=imperial'
     
-    console.log(currentURL)
+    // fetch the info for the current weather
     fetch(currentURL)
     .then(function (response) {
-        console.log(response.status)
+
+        // if the response is not ok alert the user
         if (!response.ok) {
             alert('City not found... Try again')
         }
@@ -47,21 +54,26 @@ function fetchWeatherData(event) {
     })
     .then(function (currentWeather){
 
-        console.log(currentWeather)
+        // if the response for current weather is ok then go through the response object and put the info on the page.
         if(currentWeather.cod === 200) {
+
+            // get the lat and long of the location for use in forecast search with onecall api
             let lat = currentWeather.coord.lat
             let long = currentWeather.coord.lon
-            console.log(lat)
-            let forecastURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&exclude=minutely,hourly,alerts&appid='+apiKey+'&units=imperial'
-            console.log(forecastURL)
 
+            // declare the search api url for the onecall api to be used to get the forecast and the uvi
+            let forecastURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&exclude=minutely,hourly,alerts&appid='+apiKey+'&units=imperial'
+
+            // fetch the info for the forecast weather from the onecall api
             fetch(forecastURL)
             .then(function (response){
-                console.log(response.status)
                 return response.json();
             })
             .then(function (forecastWeather){
-                console.log(forecastWeather)
+
+                // -------- print the weather information to the page (both current and forecast) ----------
+
+                // todays weather array
                 let weatherToday= [
                     currentWeather.name, 
                     'Temperatures '+forecastWeather.current.temp+' \u00B0F',
@@ -69,12 +81,16 @@ function fetchWeatherData(event) {
                     'Humidity: '+forecastWeather.current.humidity+'%',
                     'UV Index: '+forecastWeather.current.uvi,
                 ]
-        
+                
+                // print todays weather to page
                 for(let i=0; i<weatherToday.length; i++) {
                     $($(todayEl).find('p')[i]).text(weatherToday[i])
                 }   
+
+                // add icon for todays weather
                 $('#cityName').append($('<img src=\''+iconURL+currentWeather.weather[0].icon+'.png\'>'))
                 
+                // add styling for uv index 
                 if(forecastWeather.current.uvi<3) {
                     $('.uv').attr('class','bg-success text-light text-center rounded-pill').addClass('uv col-2')
                 }
@@ -87,37 +103,47 @@ function fetchWeatherData(event) {
                     $('.uv').attr('class','bg-danger text-light text-center rounded-pill').addClass('uv col-2')
                 }
 
+                // get and print forecast weather to page
                 for(let i=0; i<forecastAr.length; i++) {
+
+                    // set weatherAr array to the p tags within each forecast day div
                     let weatherAr = $(forecastAr[i]).find('p')
+
+                    // set the forcasted days weather array
                     let weatherTxt = [
                         'Temperature: '+forecastWeather.daily[i+1].temp.day+' \u00B0F',
                         'Wind Speed: '+forecastWeather.daily[i+1].wind_speed+' mph',
                         'Humidity: '+forecastWeather.daily[i+1].humidity+'%'
                     ]
+
+                    // add the weather icon
                     dateAr.eq(i).append($('<img src=\''+iconURL+forecastWeather.daily[i+1].weather[0].icon+'.png\'>'))
+
+                    // for each p tag within each forecast day div print the weather info 
                     for(let j=1, k=0; j<weatherAr.length; j++, k++) {
-                        weatherAr.eq(j).text(weatherTxt[k])
-                        
-                        
+                        weatherAr.eq(j).text(weatherTxt[k])                     
                     }
-                    console.log(weatherAr)
                 }
+
+                // if there was nothing in search history to begin with, set the current search item into search history and local storage
                 if(searchHistory===null) {
                     searchHistory = [currentWeather.name]
-                    console.log(searchHistory)
                     localStorage.setItem('searchHistory', JSON.stringify(searchHistory))
                 } else {
+                    // evaluate if the item searched is already in search history, if so print the search history and break out of the function
                     for(let each of searchHistory) {
                         if(each === currentWeather.name) {
-                            console.log(searchHistory)
                             printHistory()
                             return
                         }
                     }
+
+                    // if the item searched was not already in search history, add the city name to the search history and local storage
                     searchHistory.push(currentWeather.name)
-                    console.log(searchHistory)
                     localStorage.setItem('searchHistory', JSON.stringify(searchHistory))
                 }
+
+                // print the search histor to the page with the printHistory function
                 printHistory()
             })
         }
@@ -125,22 +151,20 @@ function fetchWeatherData(event) {
 
 }
 
+// the print history function first clears what is on the page and then adds whatever is in the search history array
 function printHistory(){
     $(historyEl).empty()
     for(let each of searchHistory){
         $(historyEl).append($('<button>'+each+'</button>')).children().attr("class","btn btn-primary m-2 historyItem")
     }
-    let historyAr = $('.historyItem');
-    console.log(historyAr)
-    return historyAr
 }
 
+// if one of the search history buttons is pressed put the button text (which came from the city name in the api) into the search bar and run the fetch weather data function
 function addHistory(event) {
     document.querySelector('#searchText').value = event.currentTarget.innerHTML
     fetchWeatherData(event)
 }
 
-
-// event listeners
+// event listeners for search button and search history (delegated to the search history buttons)
 searchButton.addEventListener('click', fetchWeatherData)
 historyEl.on('click','button',addHistory)
